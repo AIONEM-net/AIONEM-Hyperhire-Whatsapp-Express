@@ -1,2 +1,22 @@
-/node_modules/
 /.idea/
+
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Database
+*.sqlite
+
+# Logs
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea/
+*.sublime-workspace
+.vscode/
