@@ -1,8 +1,9 @@
 {
-  "name": "aionem-hyperhire-whatsapp-express",
+  "name": "aionem-hyperhire-whatsapp-express-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "start":  "node app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start":  "node app.js"

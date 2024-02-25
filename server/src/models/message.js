@@ -33,3 +33,5 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true // Enables createdAt and updatedAt fields
     });
 
+    return Message;
+};
