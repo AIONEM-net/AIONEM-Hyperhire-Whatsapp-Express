@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-// Import the API service if you're fetching and updating the user profile via your backend
-// import api from '../services/api';
 
 function UserProfile({ userId }) {
     const [userProfile, setUserProfile] = useState({ name: '', email: '' });
 
     useEffect(() => {
-        // Placeholder for fetching user profile from your backend
-        // Example: api.getUserProfile(userId).then(setUserProfile);
         const mockUserProfile = {
             name: 'John Doe',
             email: 'john@example.com',
-            // Include additional user profile fields as necessary
         };
         setUserProfile(mockUserProfile);
     }, [userId]);
 
     const handleProfileUpdate = (e) => {
         e.preventDefault();
-        // Placeholder for updating user profile logic
-        // This should call an API endpoint with userProfile data
-        // Example: api.updateUserProfile(userId, userProfile).then(response => { ... });
         console.log('Profile updated:', userProfile);
     };
 
@@ -56,7 +48,6 @@ function UserProfile({ userId }) {
                         onChange={handleChange}
                     />
                 </div>
-                {/* Include additional fields as necessary */}
                 <button type="submit">Update Profile</button>
             </form>
         </div>

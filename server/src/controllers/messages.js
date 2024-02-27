@@ -1,9 +1,22 @@
+
+const multer = require('multer');
 const { Message, User } = require('../models');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const sendMessage = async (req, res) => {
     try {
-        const { userId, chatroomId, content } = req.body;
-        const newMessage = await Message.create({ userId, chatroomId, content });
+
+        const { userId, chatroomId } = req.body;
+        const content = req.body.message;
+        const file = req.file;
+
+        let filePath = file ? file.path : null;
+
+        console.log(Message);
+
+        const newMessage = await Message.create({ userId, chatroomId, content, filePath });
         res.status(201).json(newMessage);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -17,7 +30,7 @@ const getMessagesByChatroom = async (req, res) => {
             where: { chatroomId },
             include: [{
                 model: User,
-                attributes: ['username', 'email'] // Adjust attributes as needed
+                attributes: ['username', 'email']
             }]
         });
         res.status(200).json(messages);

@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const Message = sequelize.define('Message', {
-        // Define attributes
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -25,12 +24,14 @@ module.exports = (sequelize, DataTypes) => {
         content: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        filePath: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
-        // You can add more attributes here if needed, such as message type or attachments
     }, {
-        // Model options
         tableName: 'messages',
-        timestamps: true // Enables createdAt and updatedAt fields
+        timestamps: true
     });
 
     return Message;

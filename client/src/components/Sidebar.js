@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
-// Import the API service if you're fetching chatrooms from your backend
-// import api from '../services/api';
 
 function Sidebar({ onSelectChatroom }) {
     const [chatrooms, setChatrooms] = useState([]);
+    const [activeChatroomId, setActiveChatroomId] = useState(null);
 
     useEffect(() => {
-        // Placeholder for fetching chatroom list from your backend
-        // This should call an API endpoint and update the state with the retrieved chatrooms
-        // Example: api.getChatrooms().then(setChatrooms);
         const mockChatrooms = [
-            { id: 1, name: 'Chatroom 1' },
-            { id: 2, name: 'Chatroom 2' },
-            // Add more mock chatrooms as needed
+            { id: 1, name: 'Lalande' },
+            { id: 2, name: 'Alain' },
         ];
         setChatrooms(mockChatrooms);
     }, []);
 
+    const handleSelectChatroom = (id) => {
+        onSelectChatroom(id);
+        setActiveChatroomId(id);
+    };
+
     return (
         <div className="sidebar">
-            <h3>Chatrooms</h3>
+            <h3>Chats</h3>
             <ul>
                 {chatrooms.map((chatroom) => (
-                    <li key={chatroom.id} onClick={() => onSelectChatroom(chatroom.id)}>
+                    <li
+                        key={chatroom.id}
+                        onClick={() => handleSelectChatroom(chatroom.id)}
+                        className={chatroom.id === activeChatroomId ? 'active' : ''}
+                    >
                         {chatroom.name}
                     </li>
                 ))}

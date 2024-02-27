@@ -1,11 +1,10 @@
-/* Simple reset for margin and padding */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set a default font for the app */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f7f7f7;
@@ -13,30 +12,28 @@ body {
   line-height: 1.6;
 }
 
-/* A simple container for layout purposes */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Basic styling for buttons */
 button {
-  background-color: #007bff;
+  background-color: #04a646;
   color: #ffffff;
   padding: 10px 15px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #027c34;
 }
 
-/* Link styling */
 a {
-  color: #007bff;
+  color: #04a646;
   text-decoration: none;
 }
 
@@ -44,7 +41,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Utility classes for spacing */
 .mt-1 { margin-top: 1rem; }
 .mb-1 { margin-bottom: 1rem; }
 .mt-2 { margin-top: 2rem; }

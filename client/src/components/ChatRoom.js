@@ -1,32 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-// Import socketService if you're using WebSocket for real-time communication
+import api from "../services/api";
 
 function ChatRoom({ chatroomId }) {
-    const [messages, setMessages] = useState([]);
+
+    const [messages, setMessages] = useState([
+        {
+            id: 1,
+            userId: 1,
+            chatroomId: chatroomId,
+            content: "This is the first test message.",
+            sent: true,
+        },
+        {
+            id: 2,
+            userId: 1,
+            chatroomId: chatroomId,
+            content: "This is the second test message.",
+            sent: true,
+        },
+    ]);
 
     useEffect(() => {
-        // Fetch messages for the chatroomId from your API and update state
-        // This is a placeholder for fetching messages logic
-        // You might use the `api.js` service you created to fetch messages
-        // Example: api.fetchMessages(chatroomId).then(setMessages);
+        const fetchMessages = async () => {
+            try {
+                const fetchedMessages = await api.fetchMessages(chatroomId);
+                setMessages(fetchedMessages);
+            } catch (error) {
+                console.error("Failed to fetch messages:", error);
+            }
+        };
+
+        fetchMessages();
     }, [chatroomId]);
 
-    // Function to handle sending a new message
-    // This should include updating the local state and possibly sending the message via WebSocket
-    const sendMessage = (newMessage) => {
-        // Placeholder for sending a message logic
-        setMessages([...messages, newMessage]);
-        // If using WebSocket, you would emit the new message here
-        // Example: socketService.sendMessage(newMessage);
+    const sendMessage = async (messageContent) => {
+        const tempMessageId = Date.now();
+        const tempMessage = {
+            id: tempMessageId,
+            userId: 1,
+            chatroomId: chatroomId,
+            content: messageContent,
+            sent: true,
+        };
+
+        setMessages(prevMessages => [...prevMessages, tempMessage]);
+
+        try {
+            const messageData = {
+                userId: 1,
+                chatroomId: chatroomId,
+                content: messageContent,
+            };
+            const newMessage = await api.sendMessage(messageData);
+
+            setMessages(prevMessages =>
+                prevMessages.map(msg => (msg.id === tempMessageId ? newMessage : msg))
+            );
+
+        } catch (error) {
+            console.error("Failed to send message:", error);
+            setMessages(prevMessages =>
+                prevMessages.map(msg =>
+                    msg.id === tempMessageId ? { ...msg, sent: false } : msg
+                )
+            );
+        }
     };
 
     return (
         <div className="chat-room">
-            <h2>Chat Room {chatroomId}</h2> {/* Display chat room's name or ID */}
+            <h2>Chat {chatroomId}</h2>
             <MessageList messages={messages} />
-            <MessageForm onSendMessage={sendMessage} />
+            <MessageForm onSendMessage={(messageContent) => sendMessage(messageContent)} />
         </div>
     );
 }

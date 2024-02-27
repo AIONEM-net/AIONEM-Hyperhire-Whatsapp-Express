@@ -7,16 +7,16 @@ const chatroomRoutes = require('./src/routes/chatroomRoutes');
 const messageRoutes = require('./src/routes/messageRoutes');
 const { sequelize } = require('./src/models');
 
+const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Mock user identification middleware
 app.use((req, res, next) => {
-    // Assume the user ID is passed in the header 'x-user-id'
     req.userId = req.headers['x-user-id'] || 'anonymous';
     next();
 });
@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', (message) => {
-        // Here, the message would be processed and then emitted to the room
         io.to(message.chatroomId).emit('newMessage', message);
     });
 
@@ -50,8 +49,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 sequelize.sync().then(() => {
     server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);

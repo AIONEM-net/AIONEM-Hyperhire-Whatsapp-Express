@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
-        // Define attributes
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,11 +14,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true
         }
-        // You can add more attributes here
     }, {
-        // Model options
         tableName: 'users',
-        timestamps: true // Enables createdAt and updatedAt fields
+        timestamps: true
     });
 
     return User;

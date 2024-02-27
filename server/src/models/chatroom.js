@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const Chatroom = sequelize.define('Chatroom', {
-        // Define attributes
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,13 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: true // Allowing null if you want to make the description optional
+            allowNull: true
         }
-        // You can add more attributes here if needed
     }, {
-        // Model options
         tableName: 'chatrooms',
-        timestamps: true // Enables createdAt and updatedAt fields
+        timestamps: true
     });
 
     return Chatroom;
